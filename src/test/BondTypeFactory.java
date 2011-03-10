@@ -8,6 +8,8 @@ import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.openscience.cdk.interfaces.IBond;
+
 public class BondTypeFactory {
     
     private class Dictionary {
@@ -16,6 +18,22 @@ public class BondTypeFactory {
         
         public Dictionary() {
             map = new HashMap<String, Map<String, Map<String, Integer>>>();
+        }
+        
+        public int getValue(String keyA, String keyB, String keyC) {
+            if (map.containsKey(keyA)) {
+                Map<String, Map<String, Integer>> innerMap = map.get(keyA); 
+                if (innerMap.containsKey(keyB)) {
+                    if (innerMap.get(keyB).containsKey(keyC)) {
+                        return innerMap.get(keyB).get(keyC);
+                    }
+                } else if (innerMap.containsKey(keyC)) {
+                    if (innerMap.get(keyC).containsKey(keyB)) {
+                        return innerMap.get(keyC).get(keyB);
+                    }
+                }
+            }
+            return -1;
         }
         
         public void add(String line) {
@@ -66,7 +84,7 @@ public class BondTypeFactory {
         }
     }
     
-    public static final String DICTIONARY = "bond_dictionary_head.txt";
+    public static final String DICTIONARY = "bond_dictionary.txt";
     
     private static BondTypeFactory instance;
     
@@ -81,7 +99,6 @@ public class BondTypeFactory {
             bondMap.add(line);
         }
         reader.close();
-        bondMap.toStream(System.out);
     }
     
     public static BondTypeFactory getInstance() throws IOException {
@@ -89,6 +106,19 @@ public class BondTypeFactory {
             instance = new BondTypeFactory();
         }
         return instance;
+    }
+    
+    public IBond.Order getBondOrder(String resName, String atomNameA, String atomNameB) {
+        int value = bondMap.getValue(resName, atomNameA, atomNameB);
+        switch (value) {
+            case 2 : return IBond.Order.DOUBLE;
+            case 3 : return IBond.Order.TRIPLE;
+            default: return IBond.Order.SINGLE; 
+        }
+    }
+    
+    public void printDictionaryToStream(PrintStream stream) {
+        bondMap.toStream(stream);
     }
 
 }

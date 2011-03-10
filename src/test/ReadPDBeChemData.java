@@ -57,8 +57,9 @@ public class ReadPDBeChemData {
 //        SaturationChecker saturator = new SaturationChecker();
 //        saturator.saturate(molecule);
 //        LigandHelper.addMissingBondOrders(molecule);
-        SmilesValencyChecker valenceyChecker = new SmilesValencyChecker();
-        valenceyChecker.saturate(molecule);
+//        SmilesValencyChecker valenceyChecker = new SmilesValencyChecker();
+//        valenceyChecker.saturate(molecule);
+        LigandHelper.addMissingBondOrders(molecule);
         SmilesGenerator smilesGenerator = new SmilesGenerator();
         System.out.println(smilesGenerator.createSMILES(molecule));
         System.out.println(new AtomContainerPrinter().toString(molecule));

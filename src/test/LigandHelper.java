@@ -1,5 +1,7 @@
 package test;
 
+import java.io.IOException;
+
 import org.openscience.cdk.CDKConstants;
 import org.openscience.cdk.config.AtomTypeFactory;
 import org.openscience.cdk.interfaces.IAtom;
@@ -15,11 +17,30 @@ public class LigandHelper {
     private static AtomTypeFactory atomTypeFactory;
 
     public static void addMissingBondOrders(IAtomContainer ligand) {
-        saturate(ligand);
+//        saturate(ligand);
+        useBondDictionary(ligand);
     }
     
-    private void useBondDictionary(IAtomContainer ligand) {
-        
+    private static void useBondDictionary(IAtomContainer ligand) {
+        try {
+            BondTypeFactory bondFactory = BondTypeFactory.getInstance();
+//            String resName = ligand.getID();  // TODO : this should be true...
+            String resName = null;
+            for (IBond bond : ligand.bonds()) {
+                String idA = bond.getAtom(0).getID();
+                String idB = bond.getAtom(1).getID();
+                
+                // a hack... atom IDs are 'resName.atomName'
+                if (resName == null) { resName = idA.split("\\.")[0]; }
+                idA = idA.split("\\.")[1];
+                idB = idB.split("\\.")[1];
+                    
+                System.out.println("Searching for " + resName + " " + idA + " " + idB);
+                bond.setOrder(bondFactory.getBondOrder(resName, idA, idB));
+            }
+        } catch (IOException ioe) {
+            // TODO
+        }
         
     }
 
