@@ -18,6 +18,7 @@ import org.openscience.cdk.interfaces.IMolecule;
 import org.openscience.cdk.nonotify.NoNotificationChemObjectBuilder;
 import org.openscience.cdk.signature.AtomSignature;
 import org.openscience.cdk.tools.manipulator.AtomTypeManipulator;
+import org.openscience.cdk.tools.manipulator.BondManipulator;
 
 public class MakeBondDictionary {
     
@@ -52,7 +53,7 @@ public class MakeBondDictionary {
             if (order != IBond.Order.SINGLE) {
                 String atomName0 = bond.getAtom(0).getID(); 
                 String atomName1 = bond.getAtom(1).getID();
-                int orderNumeral = order.ordinal() + 1;
+                int orderNumeral = ((int)BondManipulator.destroyBondOrder(order)) + 1;
                 System.out.println(
                         molName + ":" + atomName0 + ":" + atomName1 + ":" + orderNumeral);
             }
