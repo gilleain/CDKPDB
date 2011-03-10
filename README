@@ -1,0 +1,1 @@
+A mini-project to parse the PDB hetdictionary (components.cif, not included) and produce a map of atom names to atom types.
