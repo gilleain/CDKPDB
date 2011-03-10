@@ -41,7 +41,12 @@ public class ReadMolfile {
     
     @Test
     public void cobTest() throws FileNotFoundException, CDKException {
-        readMolfile("cob");
+        readMolfile("COB");
+    }
+    
+    @Test
+    public void haemTest() throws FileNotFoundException, CDKException {
+        readMolfile("1FH");
     }
 
 }
