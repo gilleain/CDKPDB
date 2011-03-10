@@ -17,6 +17,11 @@ public class LigandHelper {
     public static void addMissingBondOrders(IAtomContainer ligand) {
         saturate(ligand);
     }
+    
+    private void useBondDictionary(IAtomContainer ligand) {
+        
+        
+    }
 
     private static AtomTypeFactory getAtomTypeFactory(IChemObjectBuilder builder) {
         if (atomTypeFactory == null) {
