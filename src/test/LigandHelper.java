@@ -15,10 +15,19 @@ import org.openscience.cdk.tools.manipulator.BondManipulator;
 public class LigandHelper {
 
     private static AtomTypeFactory atomTypeFactory;
+    
+    public enum BondOrderMethod { HET_DICT, SATURATE };
 
     public static void addMissingBondOrders(IAtomContainer ligand) {
-//        saturate(ligand);
-        useBondDictionary(ligand);
+        addMissingBondOrders(ligand, BondOrderMethod.HET_DICT);
+    }
+    
+    public static void addMissingBondOrders(IAtomContainer ligand, BondOrderMethod method) {
+        if (method == BondOrderMethod.HET_DICT) {
+            useBondDictionary(ligand);
+        } else {
+            saturate(ligand);
+        }
     }
     
     private static void useBondDictionary(IAtomContainer ligand) {
@@ -35,7 +44,7 @@ public class LigandHelper {
                 idA = idA.split("\\.")[1];
                 idB = idB.split("\\.")[1];
                     
-                System.out.println("Searching for " + resName + " " + idA + " " + idB);
+//                System.out.println("Searching for " + resName + " " + idA + " " + idB);
                 bond.setOrder(bondFactory.getBondOrder(resName, idA, idB));
             }
         } catch (IOException ioe) {

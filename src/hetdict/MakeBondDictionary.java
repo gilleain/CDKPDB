@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.openscience.cdk.aromaticity.CDKHueckelAromaticityDetector;
@@ -61,7 +62,8 @@ public class MakeBondDictionary {
     }
     
     public static void main(String[] args) {
-        String defaultLocation = "tbd.cif";
+//        String defaultLocation = "tbd.cif";
+        String defaultLocation = "components.cif";
         String location;
         if (args.length > 0) {
             location = args[0];
@@ -77,7 +79,14 @@ public class MakeBondDictionary {
             while (reader.hasNext()) {
                 IMolecule molecule = (IMolecule) reader.next();
                 List<String[]> nulls = typeMolecule(matcher, molecule);
-                printBonds(molecule);
+//                printBonds(molecule);
+                for (String[] nullStringArr : nulls) {
+                    for (String s : nullStringArr) {
+                        System.out.print(s);
+                        System.out.print("\t");
+                    }
+                    System.out.println();
+                }
             }
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
