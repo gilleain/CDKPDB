@@ -35,7 +35,7 @@ public class MakeBondDictionary {
                         new AtomSignature(atom, signatureHeight, mol);
 //                    System.out.println(
 //                            "Null type for " + mol.getID() + " " + atom.getID() + " " + atomSignature.toCanonicalString());
-                    nulls.add(new String[]{ atom.getID(), atom.getSymbol(), atomSignature.toCanonicalString()});
+                    nulls.add(new String[]{ mol.getID(), atom.getID(), atom.getSymbol(), atomSignature.toCanonicalString()});
                 } else {
                     AtomTypeManipulator.configure(atom, type);
                 }

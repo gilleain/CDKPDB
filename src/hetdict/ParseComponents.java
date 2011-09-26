@@ -56,8 +56,8 @@ public class ParseComponents {
                 if (type == null) {
                     AtomSignature atomSignature = 
                         new AtomSignature(atom, signatureHeight, mol);
-//                    System.out.println(
-//                            "Null type for " + mol.getID() + " " + atom.getID() + " " + atomSignature.toCanonicalString());
+                    System.out.println(
+                            atomSignature.toCanonicalString() + "\t" + mol.getID() + "\t" + atom.getID());
                     nulls.add(new String[]{ atom.getID(), atom.getSymbol(), atomSignature.toCanonicalString()});
                 } else {
                     AtomTypeManipulator.configure(atom, type);
@@ -106,9 +106,9 @@ public class ParseComponents {
 //    }
 //    
     public static void main(String[] args) {
-//        String defaultLocation = "components.cif";
+        String defaultLocation = "components.cif";
 //        String defaultLocation = "077.cif";
-        String defaultLocation = "tbd.cif";
+//        String defaultLocation = "tbd.cif";
         String location;
         if (args.length > 0) {
             location = args[0];
@@ -143,7 +143,7 @@ public class ParseComponents {
                 IMolecule molecule = (IMolecule) reader.next();
                 List<String[]> nulls = typeMolecule(matcher, molecule);
 //                printMol(molecule);
-                printAtoms(molecule);
+//                printAtoms(molecule);
                 if (nulls.size() > 0) {
 //                    Resource hetgroup = addHetgroupToModel(molecule, model, resourceURI);
 //                    root.addProperty(isHetgroupProperty, hetgroup);
